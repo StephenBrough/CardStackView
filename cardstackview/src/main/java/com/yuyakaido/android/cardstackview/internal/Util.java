@@ -47,16 +47,16 @@ public class Util {
     }
 
     public static Quadrant getQuadrant(float x1, float y1, float x2, float y2) {
-        if (x2 > x1) { // Right
-            if (y2 > y1) { // Bottom
+        if (x2 > x1) { // RightSwipe
+            if (y2 > y1) { // BottomSwipe
                 return Quadrant.BottomRight;
-            } else { // Top
+            } else { // TopSwipe
                 return Quadrant.TopRight;
             }
-        } else { // Left
-            if (y2 > y1) { // Bottom
+        } else { // LeftSwipe
+            if (y2 > y1) { // BottomSwipe
                 return Quadrant.BottomLeft;
-            } else { // Top
+            } else { // TopSwipe
                 return Quadrant.TopLeft;
             }
         }

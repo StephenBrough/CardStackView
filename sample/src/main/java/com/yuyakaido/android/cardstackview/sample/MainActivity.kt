@@ -11,6 +11,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.yuyakaido.android.cardstackview.CardStackView
+import com.yuyakaido.android.cardstackview.LeftSwipe
+import com.yuyakaido.android.cardstackview.RightSwipe
 import com.yuyakaido.android.cardstackview.SwipeDirection
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -74,8 +76,8 @@ class MainActivity : AppCompatActivity() {
                 Log.d("CardStackView", "onCardDragging")
             }
 
-            override fun onCardSwiped(direction: SwipeDirection) {
-                Log.d("CardStackView", "onCardSwiped: " + direction.toString())
+            override fun onCardSwiped(direction: SwipeDirection?) {
+                Log.d("CardStackView", "onCardSwiped: " + direction?.toString())
                 Log.d("CardStackView", "topIndex: " + activityMainCardStackView!!.topIndex)
                 if (activityMainCardStackView.topIndex == adapter.count - 5) {
                     Log.d("CardStackView", "Paginate: " + activityMainCardStackView!!.topIndex)
@@ -190,7 +192,7 @@ class MainActivity : AppCompatActivity() {
         val overlayAnimationSet = AnimatorSet()
         overlayAnimationSet.playTogether(overlayAnimator)
 
-        activityMainCardStackView.swipe(SwipeDirection.Left, cardAnimationSet, overlayAnimationSet)
+        activityMainCardStackView.swipe(LeftSwipe, cardAnimationSet, overlayAnimationSet)
     }
 
     private fun swipeRight() {
@@ -221,7 +223,7 @@ class MainActivity : AppCompatActivity() {
         val overlayAnimationSet = AnimatorSet()
         overlayAnimationSet.playTogether(overlayAnimator)
 
-        activityMainCardStackView.swipe(SwipeDirection.Right, cardAnimationSet, overlayAnimationSet)
+        activityMainCardStackView.swipe(RightSwipe, cardAnimationSet, overlayAnimationSet)
     }
 
     private fun reverse() {
