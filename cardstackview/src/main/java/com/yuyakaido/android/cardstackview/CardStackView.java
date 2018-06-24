@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Point;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +22,8 @@ import com.yuyakaido.android.cardstackview.internal.Util;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import androidx.core.view.ViewCompat;
 
 public class CardStackView extends FrameLayout {
 
@@ -198,11 +199,11 @@ public class CardStackView extends FrameLayout {
         for (int i = 0; i < option.visibleCount; i++) {
             CardContainerView view = containers.get(i);
             view.reset();
-            ViewCompat.setTranslationX(view, 0f);
-            ViewCompat.setTranslationY(view, 0f);
-            ViewCompat.setScaleX(view, 1f);
-            ViewCompat.setScaleY(view, 1f);
-            ViewCompat.setRotation(view, 0f);
+            view.setTranslationX(0f);
+            view.setTranslationY(0f);
+            view.setScaleX(1f);
+            view.setScaleY(1f);
+            view.setRotation(0f);
         }
     }
 
@@ -221,8 +222,8 @@ public class CardStackView extends FrameLayout {
             float currentScale = 1f - (i * option.scaleDiff);
             float nextScale = 1f - ((i - 1) * option.scaleDiff);
             float percent = currentScale + (nextScale - currentScale) * Math.abs(percentX);
-            ViewCompat.setScaleX(view, percent);
-            ViewCompat.setScaleY(view, percent);
+            view.setScaleX(percent);
+            view.setScaleY(percent);
 
             float currentTranslationY = i * Util.toPx(getContext(), option.translationDiff);
             if (option.stackFrom == StackFrom.Top) {
@@ -235,15 +236,15 @@ public class CardStackView extends FrameLayout {
             }
 
             float translationY = currentTranslationY - Math.abs(percentX) * (currentTranslationY - nextTranslationY);
-            ViewCompat.setTranslationY(view, translationY);
+            view.setTranslationY(translationY);
         }
     }
 
     public void performReverse(Point point, View prevView, final Animator.AnimatorListener listener) {
         reorderForReverse(prevView);
         CardContainerView topView = getTopView();
-        ViewCompat.setTranslationX(topView, point.x);
-        ViewCompat.setTranslationY(topView, -point.y);
+        topView.setTranslationX(point.x);
+        topView.setTranslationY(-point.y);
         topView.animate()
                 .translationX(topView.getViewOriginX())
                 .translationY(topView.getViewOriginY())
